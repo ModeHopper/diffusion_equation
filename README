@@ -1,0 +1,14 @@
+Note: The implementation solves the equation for each time step in parallel and for this reason is dependent on PyOpenCL. It will not run without it. The PyOpenCl platform should be set as an environment variable to avoid be asked to select it at every iteration.
+
+This script solves the two-dimensional diffusion equation for an arbitrary, time-independent, spatially-varying diffusion coefficient. The diffusion equation is of the form:
+
+  pdt[u(x, y, t)] = nabla . [sigma(x, y) nabla] u(x, y, t)
+
+where pdt[] is the partial derivative with respect to time, sigma(x,y) is the diffusion coefficient as a function of position, and the solution, u(x, y, t), is to be found. It computes the solution on the unit square domain, with boundary conditions u(x, y, t) = 0, and arbitrary initial conditions. To do so, the time propagation is done using the forward Euler method, and the spatial discretisation is a standard finite difference scheme, with centred difference neighbouring the boundaries.
+
+Both sigma(x, y) and the initial conditions u(x, y, t=0) = g(x, y) are defined in their analytical form, before being automatically mapped to a discrete grid. User-defined inputs are:
+
+1. The analytical forms of g(x, y) and sigma(x, y).
+2. The duration of the simulation and length of time step.
+3. The size of the computational grid and the local work group size.
+4. Other parameters relating to the animation of the results.
